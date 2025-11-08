@@ -1,0 +1,11 @@
+name: Demo Pipeline
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Show commit message
+        run: echo "${{ github.event.head_commit.message }}"
