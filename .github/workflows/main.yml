@@ -1,11 +1,19 @@
-name: Demo Pipeline
+name: ServiceNow Change Request Pipeline
+
 on:
   push:
-    branches: [main]
+    branches: [main] 
+
 jobs:
-  build:
+  create_service_now_cr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Show commit message
-        run: echo "${{ github.event.head_commit.message }}"
+
+      - name: Create Change Request in ServiceNow
+        run: |
+          curl -X POST "https://${{ secrets.SERVICENOW_INSTANCE }}/api/now/table/change_request" \
+          --user "${{ secrets.SERVICENOW_USERNAME }}:${{ secrets.SERVICENOW_PASSWORD }}" \
+          --header "Accept: application/json" \
+          --header "Content-Type: application/json" \
+          --data '{"short_description":"Demo CR from GitHub Action"}'
