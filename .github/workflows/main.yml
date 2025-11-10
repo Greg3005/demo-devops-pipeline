@@ -17,3 +17,5 @@ jobs:
           --header "Accept: application/json" \
           --header "Content-Type: application/json" \
           --data '{"short_description":"Demo CR from GitHub Action"}'
+      - name: Wait for Approval (Demo)
+        run: sleep 60
